@@ -12,11 +12,16 @@ class Auth extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('email')) {
+        if ($this->session->userdata('username')) {
             redirect('user');
         }
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email', [
+            'required' => 'Kolom ini wajib di isi.',
+            'valid_email' => 'Email harus valid.'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'trim|required', [
+            'required' => 'Kolom ini wajib di isi.'
+        ]);
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Masuk';
@@ -32,7 +37,7 @@ class Auth extends CI_Controller
     {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+        $user = $this->db->get_where('petugas', ['username' => $email])->row_array();
 
         //id user exist
         if ($user) {
@@ -42,24 +47,26 @@ class Auth extends CI_Controller
                 if (password_verify($password, $user['password'])) {
                     $data = [
                         'email' => $user['email'],
-                        'role_id' => $user['role_id']
+                        'level' => $user['level']
                     ];
                     $this->session->set_userdata($data);
-                    if ($user['role_id'] == 1) {
+                    if ($user['level'] == 'admin') {
                         redirect('admin');
+                    } else if ($user['level'] == 'petugas') {
+                        redirect('petugas');
                     } else {
-                        redirect('user');
+                        redirect('member');
                     }
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password.</div>');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password salah.</div>');
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not activated.</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun belum aktif</div>');
                 redirect('auth');
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not registered.</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun tidak terdaftar</div>');
             redirect('auth');
         }
     }
@@ -71,11 +78,14 @@ class Auth extends CI_Controller
         }
         $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|is_unique[petugas.username]|valid_email', [
-            'is_unique' => 'This email has already registered.'
+            'is_unique' => 'This email has already registered.',
+            'required' => 'Kolom ini wajib di isi.',
+            'valid_email' => 'Email harus valid.'
         ]);
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
-            'matches' => 'Password does not match',
-            'min_length' => 'Password too short'
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[5]|matches[password2]', [
+            'matches' => 'Password tidak cocok',
+            'required' => 'Kolom ini wajib di isi.',
+            'min_length' => 'Password terlalu pendek '
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
         if ($this->form_validation->run() == false) {
