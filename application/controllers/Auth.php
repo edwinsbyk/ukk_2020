@@ -37,7 +37,9 @@ class Auth extends CI_Controller
     {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-        $user = $this->db->get_where('petugas', ['username' => $email])->row_array();
+
+        $user = $this->db->get_where('petugas', ['username' => $email], ['password' => $password])->row_array();
+
 
         //id user exist
         if ($user) {
@@ -46,7 +48,7 @@ class Auth extends CI_Controller
                 // cek passwd
                 if (password_verify($password, $user['password'])) {
                     $data = [
-                        'email' => $user['email'],
+                        'username' => $user['email'],
                         'level' => $user['level']
                     ];
                     $this->session->set_userdata($data);
@@ -118,41 +120,6 @@ class Auth extends CI_Controller
             $this->db->insert('petugas', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun anda sudah terdaftar, silahkan login!</div>');
             redirect('auth');
-        }
-    }
-    private function _sendEmail($token, $type)
-    {
-        $config = [
-            'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtp.gmail.com',
-            'smtp_user' => 'jahsehabloh@gmail.com',
-            'smtp_pass' => 'XxvortexX2901@()!',
-            'smtp_port' => 465,
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-            'newline'   => "\r\n"
-
-        ];
-
-        $this->load->library('email', $config);
-        $this->email->initialize($config);
-        $this->email->from('pelayanan@edwinsbyk.id', 'Pelayanan');
-        $this->email->to($this->input->post('email'));
-
-        if ($type == 'verify') {
-            $this->email->subject('Email verification needed.');
-            $this->email->message('Click this link to verify your account : <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
-        } elseif ($type == 'forgot') {
-            $this->email->subject('Reset password.');
-            $this->email->message('Click this link to reset your password : <a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password </a>');
-        }
-
-
-        if ($this->email->send()) {
-            return true;
-        } else {
-            echo $this->email->print_debugger();
-            die;
         }
     }
 }

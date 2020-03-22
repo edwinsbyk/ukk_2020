@@ -7,7 +7,7 @@
     <div class="bg-white rounded shadow-7 w-400 mw-100 p-6">
       <h5 class="mb-7">Masuk ke akun anda</h5>
       <?= $this->session->flashdata('message'); ?>
-      <form method="POST" action="<?= base_url('auth'); ?>">
+      <form method="post" action="<?= base_url('auth'); ?>">
         <div class="form-group">
           <input type="text" class="form-control" name="email" placeholder="Email" value="<?= set_value('email'); ?>"> <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
