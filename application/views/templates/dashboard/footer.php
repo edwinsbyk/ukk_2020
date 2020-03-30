@@ -31,7 +31,7 @@
 <script src="<?= base_url('assets/vendor'); ?>/js/codebase.core.min.js"></script>
 
 <!--
-            Codebase JS
+            Codebase JSs
 
             Custom functionality including Blocks/Layout API as well as other vital and optional helpers
             webpack is putting everything together at assets/_es6/main/app.js
