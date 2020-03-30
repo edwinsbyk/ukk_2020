@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group">
-          <input type="password" class="form-control" name="password2" placeholder="Password (confirm)">
+          <input type="password" class="form-control" name="password2" placeholder="Ulangi password">
         </div>
 
         <div class="form-group py-3">
@@ -35,7 +35,7 @@
           <button class="btn btn-block btn-primary" type="submit">Register</button>
         </div>
       </form>
-      <p class="text-center text-muted small-2">Already a member? <a href="user-login.html">Login here</a></p>
+      <p class="text-center text-muted small-2">Sudah memiliki akun?<a href="user-login.html">Login here</a></p>
     </div>
 
   </main><!-- /.main-content -->
