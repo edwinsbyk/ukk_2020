@@ -35,7 +35,7 @@
           <button class="btn btn-block btn-primary" type="submit">Register</button>
         </div>
       </form>
-      <p class="text-center text-muted small-2">Sudah memiliki akun?<a href="user-login.html">Login here</a></p>
+      <p class="text-center text-muted small-2">Sudah memiliki akun?<a href="<?= base_url('auth') ?>">Login here</a></p>
     </div>
 
   </main><!-- /.main-content -->
