@@ -1,19 +1,20 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends CI_Controller
+{
 
-	
+
 	public function index()
 	{
-		
+
 		$data = array(
-            'title' => "Selamat datang di Aplikasi Pelayanan Masyarakat Medan",
-            // 'listBerita' => $this->berita->getDaftarBerita(),
-            // 'isi' => 'home/index'
-        );
-		$this->load->view('templates/navbar',$data);
+			'title' => "Selamat datang di Aplikasi Pelayanan Masyarakat Medan",
+			// 'listBerita' => $this->berita->getDaftarBerita(),
+			// 'isi' => 'home/index'
+		);
+		$this->load->view('home/navbar', $data);
 		$this->load->view('hello');
-		$this->load->view('templates/footer');
+		$this->load->view('home/footer');
 	}
 }
