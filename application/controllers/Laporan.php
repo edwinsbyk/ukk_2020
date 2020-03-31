@@ -12,7 +12,7 @@ class Laporan extends CI_Controller
     public function buatLaporan()
     {
         $data['title'] = 'Buat Laporan';
-
+        $data['extra_component'] = '/js/plugins/summernote/summernote-bs4.css';
         $data['user'] =  $this->db->get_where('petugas', ['username' =>
         $this->session->userdata('username')])->row_array();
 

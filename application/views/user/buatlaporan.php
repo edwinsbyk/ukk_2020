@@ -1,3 +1,20 @@
+<script src="<?= base_url('assets/vendor'); ?>/js/plugins/jquery/jquery-3.4.1.js"></script>
+<script src="<?= base_url('assets/vendor'); ?>/js/plugins/summernote/summernote-bs4.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#summenote').summernote({
+            height: "300px",
+            callbacks: {
+                onImageUpload: function(image) {
+                    uploadImage(image[0]);
+                },
+                onMediaDelete: function(target) {
+
+                }
+            }
+        })
+    })
+</script>
 <div class="col-md">
     <!-- Validation Wizard Material -->
     <div class="js-wizard-validation-material block">
@@ -45,10 +62,7 @@
                 <!-- Step 2 -->
                 <div class="tab-pane" id="wizard-validation-material-step2" role="tabpanel">
                     <div class="form-group">
-                        <div class="form-material floating">
-                            <textarea class="form-control" id="wizard-validation-material-bio" name="wizard-validation-material-bio" rows="9"></textarea>
-                            <label for="wizard-validation-material-bio">Bio</label>
-                        </div>
+
                     </div>
                 </div>
                 <!-- END Step 2 -->

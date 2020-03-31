@@ -31,7 +31,7 @@
     <!-- Fonts and Codebase framework -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
     <link rel="stylesheet" id="css-main" href="<?= base_url('assets/vendor'); ?>/css/codebase.css">
-    <link rel="stylesheet" href="<?= base_url('assets/vendor'); ?>/js/pages/be_forms_wizard.min.js">
+    <link rel="stylesheet" href="<?= base_url('assets/vendor'); ?><?= $extra_component; ?>">
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
@@ -39,6 +39,7 @@
 </head>
 
 <body>
+
 
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
         <!-- Side Overlay-->
